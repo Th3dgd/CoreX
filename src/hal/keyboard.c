@@ -92,7 +92,8 @@ void k_get_input(char *buffer, int buffer_size) {
         if (key == '\b') {
             if (index > 0) {
                 index--;
-                col = col - 2;
+                k_print_keys(line, '\0', col);
+                col--;
             }
         }else {
             if (key == '\n' || key == '\r') {
