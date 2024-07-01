@@ -14,10 +14,6 @@ void update_cursor(unsigned int row, unsigned int col) {
     outb(0x3D5, (unsigned char)((position >> 8) & 0xFF));
 }
 
-/*void update_print_keys(char *key) {
-    
-}*/
-
 uint8_t inb(uint16_t port)
 {
     uint8_t result;
@@ -108,6 +104,7 @@ void k_get_input(char *buffer, int buffer_size) {
                 buffer[index] = key;
                 index++;
                 col++;
+                k_print_keys(line, key, col);
             }
         }
         update_cursor(line, col);

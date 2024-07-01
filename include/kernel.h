@@ -24,7 +24,7 @@ extern unsigned int line;
 // screen functions
 void k_clear_screen();
 unsigned int k_printf(char *message);
-void k_test_print();
+void k_print_keys(int line, char key, int col);
 
 // keyboard
 void k_get_input(char *buffer, int buffer_size);

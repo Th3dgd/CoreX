@@ -6,8 +6,6 @@
 void k_main() {
     k_clear_screen();
 
-    //k_test_print();
-
     while (true){
         char input[256];
         

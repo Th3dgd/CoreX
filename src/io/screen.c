@@ -17,13 +17,11 @@ void k_clear_screen() {
     update_cursor(0, 0);
 }
 
-void k_test_print() {
+void k_print_keys(int row, char key, int col) {
     char *vidmem = (char *) 0xb8000;
-    unsigned int i = 64;
-    vidmem[i] = 'c';
-    i++;
-    vidmem[i] = WHITE_TXT;
-    i++;
+    unsigned int i = ((row - 1) * 80 + (col - 1)) * 2;
+    vidmem[i] = key;
+    vidmem[i + 1] = WHITE_TXT;
 }
 
 
