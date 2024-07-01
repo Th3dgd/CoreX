@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "kernel.h": "c"
+        "kernel.h": "c",
+        "k_string.h": "c"
     }
 }
