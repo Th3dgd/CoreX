@@ -84,7 +84,7 @@ char getchar()
 void k_get_input(char *buffer, int buffer_size) {
     char key;
     int index = 0;
-    unsigned int col = 20;
+    unsigned int col = 19;
 
     while (index < buffer_size - 1) {
         key = getchar();

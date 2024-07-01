@@ -9,7 +9,7 @@ void k_main() {
     while (true){
         char input[256];
         
-        k_printf("[wrykun@kernel ~/]$ ");
+        k_printf("[th3dgd@corex ~/]$ ");
 
         k_get_input(input, sizeof(input));
 
