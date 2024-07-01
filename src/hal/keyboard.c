@@ -81,10 +81,10 @@ char getchar()
     return scancode < 128 ? scancode_to_ascii[scancode] : 0;
 }
 
-void k_get_input(char *buffer, int buffer_size) {
+void k_get_input(char *buffer, int buffer_size, int col_lenght, void* key_typing) {
     char key;
     int index = 0;
-    unsigned int col = 19;
+    unsigned int col = col_lenght;
 
     while (index < buffer_size - 1) {
         key = getchar();
@@ -105,7 +105,9 @@ void k_get_input(char *buffer, int buffer_size) {
                 buffer[index] = key;
                 index++;
                 col++;
-                k_print_keys(line, key, col);
+                if (key_typing == true){
+                    k_print_keys(line, key, col);
+                }
             }
         }
         update_cursor(line, col);
