@@ -3,6 +3,7 @@
         "kernel.h": "c",
         "k_string.h": "c",
         "system_error": "c",
-        "k_disk_controllers.h": "c"
+        "k_disk_controllers.h": "c",
+        "typeinfo": "c"
     }
 }

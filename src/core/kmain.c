@@ -3,6 +3,7 @@
 #include "../include/kernel.h"
 #include "../include/k_string.h"
 #include "../include/k_disk_controllers.h"
+#include "../include/k_bios_called.h"
 
 void k_main() {
     k_clear_screen();
@@ -46,6 +47,8 @@ void k_main() {
             k_printf("time: ");
             k_printf(time_str);
 
+        }else if (k_strcmp(input, "ls") == 0) {
+            ls_command();
         }else {
             k_printf("Unknown command");
             k_printf(input);
