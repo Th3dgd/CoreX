@@ -1,23 +1,23 @@
-ASM=nasm
-CC=gcc
-LD=ld
+ASM = nasm
+CC = gcc
+LD = ld
 
-ASMFLAGS=-f elf32
-CFLAGS=-m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector -nostartfiles -nodefaultlibs -Wall -Wextra -Werror -c
-LDFLAGS=-m elf_i386 -T linker/link.ld
+ASMFLAGS = -f elf32
+CFLAGS = -m32 -Wall -Wextra -Werror -c -I$(INCLUDE_DIR) -I/usr/include
+LDFLAGS = -m elf_i386 -T linker/link.ld -L/usr/lib -z noexecstack
 
-SRC_DIR=src
-BUILD_DIR=build
-ASM_DIR=asm
-INCLUDE_DIR=include
+SRC_DIR = src
+BUILD_DIR = build
+ASM_DIR = asm
+INCLUDE_DIR = include
 
-ASM_SOURCES=$(wildcard $(ASM_DIR)/*.asm)
-C_SOURCES=$(wildcard $(SRC_DIR)/*/*.c) kernel.c
+ASM_SOURCES = $(wildcard $(ASM_DIR)/*.asm)
+C_SOURCES = $(wildcard $(SRC_DIR)/*/*.c) kernel.c
 
-ASM_OBJECTS=$(patsubst $(ASM_DIR)/%.asm,$(BUILD_DIR)/%.o,$(ASM_SOURCES))
-C_OBJECTS=$(patsubst %.c,$(BUILD_DIR)/%.o,$(C_SOURCES))
+ASM_OBJECTS = $(patsubst $(ASM_DIR)/%.asm,$(BUILD_DIR)/%.o,$(ASM_SOURCES))
+C_OBJECTS = $(patsubst %.c,$(BUILD_DIR)/%.o,$(C_SOURCES))
 
-KERNEL=kernel.bin
+KERNEL = kernel.bin
 
 all: $(KERNEL)
 
@@ -30,12 +30,12 @@ $(BUILD_DIR)/%.o: $(ASM_DIR)/%.asm
 
 $(BUILD_DIR)/%.o: %.c
 	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) -I$(INCLUDE_DIR) $< -o $@
+	$(CC) $(CFLAGS) $< -o $@
 
 clean:
 	rm -rf $(BUILD_DIR)/*.o $(KERNEL)
 
 run:
-	qemu-system-i386 -kernel kernel.bin
+	qemu-system-i386 -kernel $(KERNEL)
 
-.PHONY: all clean
+.PHONY: all clean run

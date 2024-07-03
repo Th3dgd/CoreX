@@ -64,7 +64,7 @@ const char scancode_to_ascii[128] = {
     0,  /* All other keys are undefined */
 };
 
-char getchar()
+char k_getchar()
 {
     uint8_t scancode;
     
@@ -87,7 +87,7 @@ void k_get_input(char *buffer, int buffer_size, int col_lenght, void* key_typing
     unsigned int col = col_lenght;
 
     while (index < buffer_size - 1) {
-        key = getchar();
+        key = k_getchar();
 
         if (key == '\b') {
             if (index > 0) {

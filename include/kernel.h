@@ -25,6 +25,7 @@ extern unsigned int line;
 void k_clear_screen();
 unsigned int k_printf(char *message);
 void k_print_keys(int line, char key, int col);
+void k_printf_int(int num);
 
 // keyboard
 void k_get_input(char *buffer, int buffer_size, int col_lenght, void* key_typing);
@@ -32,7 +33,7 @@ uint8_t inb(uint16_t port);
 void outb(uint16_t port, uint8_t value);
 void update_cursor(unsigned int row, unsigned int col);
 void keyboard_init();
-char getchar();
+char k_getchar();
 
 // core
 void k_main();

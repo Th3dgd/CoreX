@@ -2,6 +2,7 @@
 
 #include "../include/kernel.h"
 #include "../include/k_string.h"
+#include "../include/k_disk_controllers.h"
 
 void k_main() {
     k_clear_screen();
@@ -34,6 +35,17 @@ void k_main() {
             k_printf("exit: exit the kernel");
         }else if(k_strcmp(input, "clear") == 0) {
             k_clear_screen();
+        }else if(k_strcmp(input, "clock") == 0){
+            uint32_t time = getBIOSClock();
+            uint8_t hours = (time >> 16) & 0xFF;
+            uint8_t minutes = (time >> 8) & 0xFF;
+            uint8_t seconds = time & 0xFF;
+            
+            char time_str[9];
+            k_sprintf(time_str, "%02d:%02d:%02d", hours, minutes, seconds);
+            k_printf("time: ");
+            k_printf(time_str);
+
         }else {
             k_printf("Unknown command");
             k_printf(input);
