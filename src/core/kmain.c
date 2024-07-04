@@ -12,12 +12,12 @@ void k_main() {
     char input_password[256];
 
     do {
-        k_printf("Login CoreX\n");
+        k_println("Login CoreX\n");
 
-        k_printf("Username: ");
+        k_println("Username: ");
         k_get_input(input_username, sizeof(input_username), 10, true);
 
-        k_printf("Password: ");
+        k_println("Password: ");
         k_get_input(input_password, sizeof(input_password), 10, false);
 
         k_clear_screen();
@@ -26,14 +26,14 @@ void k_main() {
     while (true){
         char input[256];
 
-        k_printf("[th3dgd@corex ~/]$ ");
+        k_println("[th3dgd@corex ~/]$ ");
 
         k_get_input(input, sizeof(input), 19, true);
 
         if (k_strcmp(input, "help") == 0){
-            k_printf("help: print this message");
-            k_printf("clear: clear the screen");
-            k_printf("exit: exit the kernel");
+            k_println("help: print this message");
+            k_println("clear: clear the screen");
+            k_println("exit: exit the kernel");
         }else if(k_strcmp(input, "clear") == 0) {
             k_clear_screen();
         }else if(k_strcmp(input, "clock") == 0){
@@ -44,14 +44,14 @@ void k_main() {
             
             char time_str[9];
             k_sprintf(time_str, "%02d:%02d:%02d", hours, minutes, seconds);
-            k_printf("time: ");
-            k_printf(time_str);
+            k_println("time: ");
+            k_println(time_str);
 
         }else if (k_strcmp(input, "ls") == 0) {
             ls_command();
         }else {
-            k_printf("Unknown command");
-            k_printf(input);
+            k_println("Unknown command");
+            k_println(input);
         }
     }
     // k_printf(input);

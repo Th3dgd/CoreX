@@ -18,14 +18,16 @@ typedef unsigned int uint32_t;
 
 // Values
 extern unsigned int line;
+extern unsigned int col;
 
 // Functions
 
 // screen functions
 void k_clear_screen();
-unsigned int k_printf(char *message);
+unsigned int k_println(char *message);
+unsigned int k_print(char *message);
 void k_print_keys(int line, char key, int col);
-void k_printf_int(int num);
+void k_println_int(int num);
 
 // keyboard
 void k_get_input(char *buffer, int buffer_size, int col_lenght, void* key_typing);

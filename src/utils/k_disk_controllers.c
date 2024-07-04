@@ -80,7 +80,7 @@ int read_sectors(uint32_t start_sector, uint32_t num_sectors, void* buffer) {
     } while (status & 0x80);
 
     if (status & 0x01) {
-        k_printf("Error de lectura de disco\n");
+        k_println("Error de lectura de disco\n");
         return 0;
     }
 
@@ -103,7 +103,7 @@ void ls_command() {
     uint32_t sector;
 
     if (!read_sectors(0, 1, &bs)) {
-        k_printf("Error al leer el sector de arranque\n");
+        k_println("Error al leer el sector de arranque\n");
         return;
     }
 
@@ -119,7 +119,7 @@ void ls_command() {
         for (int i = 0; i < bs.sectors_per_cluster; i++) {
             if (!read_sectors(sector + i, 1, buffer)) {
                 k_sprintf(buffer, "Error al leer el sector %d\n", sector + i);
-                k_printf(buffer);
+                k_println(buffer);
                 return;
             }
 
@@ -140,25 +140,26 @@ void ls_command() {
 
                 for (int k = 0; k < 8 && entry->name[k] != ' '; k++) {
                     //k_sprintf(buffer, "%c", entry->name[k]);
-                    k_printf(ascii_to_string(entry->name[k]));
+                    k_print(ascii_to_string(entry->name[k]));
                 }
 
                 if (entry->name[8] != ' ') {
-                    k_printf(".");
+                    k_print(".");
                     for (int k = 8; k < 11 && entry->name[k] != ' '; k++) {
                         //k_sprintf(buffer, "%c", entry->name[k]);
-                        k_printf(ascii_to_string(entry->name[k]));
+                        k_print(ascii_to_string(entry->name[k]));
                     }
                 }
+                k_print(" ");
             }
         }
-
+        
         uint32_t fat_sector = fat_begin_lba + (current_cluster * 4 / SECTOR_SIZE);
         uint32_t fat_offset = (current_cluster * 4) % SECTOR_SIZE;
         uint8_t fat_buffer[SECTOR_SIZE];
 
         if (!read_sectors(fat_sector, 1, fat_buffer)) {
-            k_printf("Error al leer la FAT\n");
+            k_println("Error al leer la FAT\n");
             return;
         }
 
