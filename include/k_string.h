@@ -7,5 +7,6 @@
 int k_strcmp(const char *str1, const char *str2);
 int k_sprintf(char *buf, const char *fmt, ...);
 void int_to_str(int num, char* str, int width);
+char *ascii_to_string (int ascii);
 
 #endif

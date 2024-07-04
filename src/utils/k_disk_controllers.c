@@ -140,14 +140,14 @@ void ls_command() {
 
                 for (int k = 0; k < 8 && entry->name[k] != ' '; k++) {
                     //k_sprintf(buffer, "%c", entry->name[k]);
-                    k_printf_int(entry->name[k]);
+                    k_printf(ascii_to_string(entry->name[k]));
                 }
 
                 if (entry->name[8] != ' ') {
                     k_printf(".");
                     for (int k = 8; k < 11 && entry->name[k] != ' '; k++) {
                         //k_sprintf(buffer, "%c", entry->name[k]);
-                        k_printf_int(entry->name[k]);
+                        k_printf(ascii_to_string(entry->name[k]));
                     }
                 }
             }

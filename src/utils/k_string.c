@@ -32,13 +32,20 @@ void int_to_str(int num, char* str, int width) {
 
     str[i] = '\0';
 
-    // Reverse the string
     for (int j = 0; j < i / 2; j++) {
         char temp = str[j];
         str[j] = str[i - 1 - j];
         str[i - 1 - j] = temp;
     }
 }
+
+char *ascii_to_string(int ascii) {
+    static char str[2];
+    str[0] = ascii;
+    str[1] = '\0';
+    return str;
+}
+
 
 int k_sprintf(char *buf, const char *fmt, ...) {
     va_list args;

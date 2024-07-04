@@ -36,6 +36,6 @@ clean:
 	rm -rf $(BUILD_DIR)/*.o $(KERNEL)
 
 run:
-	qemu-system-i386 -kernel $(KERNEL)
+	qemu-system-x86_64 -drive file=disk.img,format=raw -kernel $(KERNEL)
 
 .PHONY: all clean run
