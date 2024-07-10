@@ -153,7 +153,6 @@ void ls_command() {
                 k_print(" ");
             }
         }
-        
         uint32_t fat_sector = fat_begin_lba + (current_cluster * 4 / SECTOR_SIZE);
         uint32_t fat_offset = (current_cluster * 4) % SECTOR_SIZE;
         uint8_t fat_buffer[SECTOR_SIZE];
