@@ -1,4 +1,5 @@
 // kernel/kernel.c
+// Kernel developing for Th3dgd
 
 #include "include/kernel.h"
 
