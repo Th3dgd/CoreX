@@ -5,6 +5,10 @@
 #include "../include/k_disk_controllers.h"
 #include "../include/k_bios_called.h"
 
+void __stack_chk_fail_local() {
+    k_println("FAIL IN __stack_chk_fail_local");
+}
+
 void k_main() {
     k_clear_screen();
 

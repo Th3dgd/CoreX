@@ -3,8 +3,8 @@ CC = gcc
 LD = ld
 
 ASMFLAGS = -f elf32
-CFLAGS = -m32 -Wall -Wextra -Werror -c -I$(INCLUDE_DIR) -I/usr/include
-LDFLAGS = -m elf_i386 -T linker/link.ld -L/usr/lib -z noexecstack
+CFLAGS = -m32 -Wall -Wextra -Werror -c -I$(INCLUDE_DIR) -I/usr/include -fno-stack-protector -fno-pie
+LDFLAGS = -m elf_i386 -T linker/link.ld -L/usr/lib -z execstack -no-pie
 
 SRC_DIR = src
 BUILD_DIR = build
