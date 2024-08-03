@@ -86,8 +86,13 @@ int read_sectors(uint32_t start_sector, uint32_t num_sectors, void* buffer) {
 
     insw(ATA_PRIMARY_DATA_PORT, buffer, SECTOR_SIZE * num_sectors / 2);
 
+    do {
+        status = inb(ATA_PRIMARY_COMMAND_PORT);
+    } while (status & 0x80);
+
     return 1;
 }
+
 
 
 uint32_t cluster_to_lba(uint32_t cluster, uint32_t cluster_begin_lba, uint8_t sectors_per_cluster) {
@@ -116,6 +121,7 @@ void ls_command() {
     while (current_cluster < 0x0FFFFFF8) {
         sector = cluster_to_lba(current_cluster, cluster_begin_lba, bs.sectors_per_cluster);
         char buffer[SECTOR_SIZE];
+
         for (int i = 0; i < bs.sectors_per_cluster; i++) {
             if (!read_sectors(sector + i, 1, buffer)) {
                 k_sprintf(buffer, "Error al leer el sector %d\n", sector + i);
@@ -127,7 +133,7 @@ void ls_command() {
                 struct fat32_dir_entry* entry = (struct fat32_dir_entry*)(buffer + j * sizeof(struct fat32_dir_entry));
 
                 if (entry->name[0] == 0x00) {
-                    return;
+                    break;
                 }
 
                 if (entry->name[0] == 0xE5) {
@@ -139,20 +145,23 @@ void ls_command() {
                 }
 
                 for (int k = 0; k < 8 && entry->name[k] != ' '; k++) {
-                    //k_sprintf(buffer, "%c", entry->name[k]);
                     k_print(ascii_to_string(entry->name[k]));
                 }
 
                 if (entry->name[8] != ' ') {
                     k_print(".");
                     for (int k = 8; k < 11 && entry->name[k] != ' '; k++) {
-                        //k_sprintf(buffer, "%c", entry->name[k]);
                         k_print(ascii_to_string(entry->name[k]));
                     }
                 }
                 k_print(" ");
             }
+
+            if (buffer[0] == 0x00) {
+                break;
+            }
         }
+
         uint32_t fat_sector = fat_begin_lba + (current_cluster * 4 / SECTOR_SIZE);
         uint32_t fat_offset = (current_cluster * 4) % SECTOR_SIZE;
         uint8_t fat_buffer[SECTOR_SIZE];
@@ -163,7 +172,10 @@ void ls_command() {
         }
 
         current_cluster = *((uint32_t*)((uint8_t*)fat_buffer + fat_offset)) & 0x0FFFFFFF;
-        break;
+
+        if (current_cluster >= 0x0FFFFFF8) {
+            break;
+        }
     }
     return;
 }
