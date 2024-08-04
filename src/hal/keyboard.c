@@ -13,7 +13,7 @@ void update_cursor(unsigned int row, unsigned int col) {
     outb(0x3D4, 0x0E);
     outb(0x3D5, (unsigned char)((position >> 8) & 0xFF));
 }
-
+/*
 uint8_t inb(uint16_t port)
 {
     uint8_t result;
@@ -24,7 +24,7 @@ uint8_t inb(uint16_t port)
 void outb(uint16_t port, uint8_t data)
 {
     __asm__ __volatile__("outb %0, %1" : : "a"(data), "Nd"(port));
-}
+}*/
 
 const char scancode_to_ascii[128] = {
     0,  27, '1', '2', '3', '4', '5', '6', '7', '8', /* 9 */
@@ -81,7 +81,7 @@ char k_getchar()
     return scancode < 128 ? scancode_to_ascii[scancode] : 0;
 }
 
-void k_get_input(char *buffer, int buffer_size, int col_lenght, void* key_typing) {
+void k_get_input(char *buffer, int buffer_size, int col_lenght, bool key_typing) {
     char key;
     int index = 0;
     unsigned int col = col_lenght;
@@ -105,7 +105,7 @@ void k_get_input(char *buffer, int buffer_size, int col_lenght, void* key_typing
                 buffer[index] = key;
                 index++;
                 col++;
-                if (key_typing == true){
+                if (key_typing){
                     k_print_keys(line, key, col);
                 }
             }

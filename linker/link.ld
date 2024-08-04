@@ -21,4 +21,5 @@ SECTIONS {
         *(COMMON)
         *(.bss)
     }
+    stack_top = .;
 }

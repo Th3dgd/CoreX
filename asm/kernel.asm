@@ -13,7 +13,9 @@ align 4
     dd MBOOT_CHECKSUM
 
 global kernel_entry
+global stack_top
 extern k_main
+extern xhell
 
 section .text
 kernel_entry:
