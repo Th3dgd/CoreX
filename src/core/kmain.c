@@ -2,7 +2,8 @@
 
 #include "../include/kernel.h"
 #include "../include/k_string.h"
-#include "../include/k_disk_controllers.h"
+#include "../include/fs/fat32.h"
+#include "../include/fs/ext4.h"
 #include "../include/k_bios_called.h"
 
 extern char stack_top[];
@@ -12,9 +13,17 @@ void __stack_chk_fail_local() {
 }
 
 __attribute__((naked))
-void ls_command_trampoline() {
+void ls_fat32_command_trampoline() {
     __asm__ volatile (
-        "call ls_command\n"
+        "call ls_fat32_command\n"
+        "ret\n"
+    );
+}
+
+__attribute__((naked))
+void ls_ext4_command_trampoline() {
+    __asm__ volatile (
+        "call ls_ext4_command\n"
         "ret\n"
     );
 }
@@ -44,8 +53,10 @@ void xhell() {
             k_println("time: ");
             k_println(time_str);
 
-        }else if (k_strcmp(input, "ls") == 0) {
-            ls_command_trampoline();
+        }else if (k_strcmp(input, "lsfat32") == 0) {
+            ls_fat32_command_trampoline();
+        }else if (k_strcmp(input, "lsext4") == 0) {
+            ls_ext4_command_trampoline();
         }else {
             k_println("Unknown command");
             k_println(input);

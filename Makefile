@@ -35,7 +35,9 @@ $(BUILD_DIR)/%.o: %.c
 clean:
 	rm -rf $(BUILD_DIR)/*.o $(KERNEL)
 
-run:
-	qemu-system-x86_64 -drive file=disk.img,format=raw -kernel $(KERNEL)
+run_fat32:
+	qemu-system-x86_64 -drive file=disk_fat32.img,format=raw -kernel $(KERNEL)
+run_ext4:
+	qemu-system-x86_64 -drive file=disk_ext4.img,format=raw -kernel $(KERNEL) -s -S -serial stdio
 
 .PHONY: all clean run
