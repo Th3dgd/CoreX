@@ -83,7 +83,7 @@ bool read_sectors(uint32_t start_sector, uint32_t num_sectors, void* buffer) {
         uint8_t status = inb(ATA_PRIMARY_COMMAND_PORT);
         if (!(status & 0x80)) break;
         if (status & 0x01) {
-            k_println("Error de disco detectado");
+            k_println("error de disco detectado");
             return false;
         }
     }
@@ -100,7 +100,7 @@ bool read_sectors(uint32_t start_sector, uint32_t num_sectors, void* buffer) {
             uint8_t status = inb(ATA_PRIMARY_COMMAND_PORT);
             if (!(status & 0x80)) break;
             if (status & 0x01) {
-                k_println("Error de lectura de sector");
+                k_println("error de lectura de sector");
                 return false;
             }
         }
@@ -116,7 +116,7 @@ void ls_command() {
     uint32_t fat_begin_lba, cluster_begin_lba, root_dir_first_cluster, current_cluster;
 
     if (!read_sectors(0, 1, &bs)) {
-        k_println("Error al leer el sector de arranque");
+        k_println("error al leer el sector de arranque");
         return;
     }
 
@@ -133,7 +133,7 @@ void ls_command() {
         char buffer[SECTOR_SIZE * bs.sectors_per_cluster];
 
         if (!read_sectors(sector, bs.sectors_per_cluster, buffer)) {
-            k_println("Error al leer cluster");
+            k_println("error al leer cluster");
             return;
         }
 
@@ -156,7 +156,7 @@ void ls_command() {
         uint32_t next_cluster;
 
         if (!read_sectors(fat_sector, 1, &next_cluster)) {
-            k_println("Error al leer la FAT");
+            k_println("error al leer la FAT");
             return;
         }
 
