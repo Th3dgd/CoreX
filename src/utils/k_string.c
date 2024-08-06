@@ -1,3 +1,4 @@
+// src/utils/k_string.c
 #include "../include/k_string.h"
 
 int k_strcmp(const char *str1, const char *str2) {
