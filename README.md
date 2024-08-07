@@ -22,4 +22,10 @@ Basic instructions to compile and run the kernel:
 ```bash
 make clean
 make
-make run
+make run_fat32
+```
+or
+```bash
+make run_ext4
+```
+
