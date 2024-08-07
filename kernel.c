@@ -5,5 +5,7 @@
 
 void kernel_entry() {
     k_main();
-    while(1) {}
+    while(1) {
+        k_printf(".");
+    }
 }
