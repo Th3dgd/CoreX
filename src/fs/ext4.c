@@ -162,6 +162,6 @@ void ls_ext4_command() {
     }
 
     asm __volatile__ (
-        "call xhell\n"
+        "call xhell_ui\n"
         "ret\n");
 }

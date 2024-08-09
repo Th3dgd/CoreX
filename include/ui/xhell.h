@@ -3,6 +3,6 @@
 #ifndef XHELL_H
 #define XHELL_H
 
-void xhell();
+void xhell_ui();
 
-#endif
+#endif // END XHELL_H

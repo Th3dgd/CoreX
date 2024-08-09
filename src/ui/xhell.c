@@ -23,7 +23,7 @@ void ls_ext4_command_trampoline() {
     );
 }
 
-void xhell() {
+void xhell_ui() {
     while (true){
         char input[256];
 

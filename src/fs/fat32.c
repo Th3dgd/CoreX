@@ -168,6 +168,6 @@ void ls_fat32_command() {
     k_print("\n");
 
     asm __volatile__ (
-        "call xhell\n"
+        "call xhell_ui\n"
         "ret\n");
 }
