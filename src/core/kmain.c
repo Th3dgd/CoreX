@@ -56,7 +56,7 @@ void xhell() {
         }else if (k_strcmp(input, "lsfat32") == 0) {
             ls_fat32_command_trampoline();
         }else if (k_strcmp(input, "lsext4") == 0) {
-            ls_ext4_command_trampoline();
+            ls_ext4_command_trampoline(); // TODO fix lsext4 command
         }else {
             k_println("Unknown command");
             k_println(input);
