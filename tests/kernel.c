@@ -21,7 +21,7 @@ typedef struct MemoryBlock {
     int free;
 } MemoryBlock;
 
-#define MEMORY_SIZE 1024 * 1024 // 1MB de memoria para el allocator
+#define MEMORY_SIZE 1024 * 1024
 static char memory[MEMORY_SIZE];
 
 MemoryBlock *freeList;
@@ -59,7 +59,7 @@ void *malloc(uint32_t size)
         current = current->next;
     }
 
-    return NULL; // No hay suficiente memoria
+    return NULL;
 }
 
 void free(void *ptr)
@@ -70,7 +70,6 @@ void free(void *ptr)
     MemoryBlock *block = (MemoryBlock *)((char *)ptr - sizeof(MemoryBlock));
     block->free = 1;
 
-    // Coalesce los bloques libres adyacentes
     MemoryBlock *current = freeList;
     while (current != NULL)
     {
@@ -88,10 +87,9 @@ unsigned int k_printf(char *message, unsigned int line);
 void k_get_input(char *buffer, int buffer_size);
 char getchar();
 
-/* simple kernel written in C */
 void k_main() 
 {
-    memory_init(); // Inicializar el allocator de memoria
+    memory_init();
     char input[256];
     
     k_clear_screen();
@@ -105,7 +103,6 @@ void k_main()
     //k_process_command(input);
 }
 
-/* k_clear_screen : to clear the entire text screen */
 void k_clear_screen()
 {
     char *vidmem = (char *) 0xb8000;
@@ -119,7 +116,6 @@ void k_clear_screen()
     };
 };
 
-/* k_printf : the message and the line # */
 unsigned int k_printf(char *message, unsigned int line)
 {
     char *vidmem = (char *) 0xb8000;
@@ -129,7 +125,7 @@ unsigned int k_printf(char *message, unsigned int line)
 
     while(*message!=0)
     {
-        if(*message=='\n') // check for a new line
+        if(*message=='\n')
         {
             line++;
             i=(line*80*2);
@@ -163,7 +159,6 @@ char getchar()
     uint8_t status;
     char keycode;
 
-    // Espera a que el buffer del teclado tenga datos
     do {
         status = inb(KEYBOARD_STATUS_PORT);
     } while ((status & 0x01) == 0);
@@ -220,18 +215,18 @@ void k_get_input(char *buffer, int buffer_size)
         key = getchar();
         key = scancode_to_ascii[(unsigned char)key];
 
-        if (key == '\n' || key == '\r') // Check for Enter key
+        if (key == '\n' || key == '\r')
         {
-            buffer[index] = '\0'; // Terminate string
+            buffer[index] = '\0';
             break;
         }
 
-        if (key != 0) // If valid key
+        if (key != 0)
         {
             buffer[index] = key;
             index++;
 
-            if (index >= buffer_size - 1) // Ensure no buffer overflow
+            if (index >= buffer_size - 1)
                 break;
         }
     }
